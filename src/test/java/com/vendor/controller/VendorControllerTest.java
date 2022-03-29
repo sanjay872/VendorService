@@ -7,20 +7,15 @@ import java.io.IOException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.Order;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.fasterxml.jackson.core.JsonParseException;
@@ -32,17 +27,11 @@ import com.vendor.entity.Vendor;
 
 @TestMethodOrder(OrderAnnotation.class)
 @SpringBootTest(classes= VendorServiceApplication.class)
-//@ExtendWith(MockitoExtension.class)
 class VendorControllerTest {
 
 	@Autowired
 	private WebApplicationContext webApplicationContext;
 	
-//	@Value("${product.url}")
-//	private String productUrl;
-	
-//	@Mock
-//	private RestTemplate restTemplate;
 	
 	private MockMvc mvc;
 	private static long createdVendorId=0; 
@@ -90,13 +79,13 @@ class VendorControllerTest {
 	    assertTrue(vendorList.length > 0);
 	}
 	
-//	@Test
-//	@Order(4)
-//	void deleteVendorTestRequest() throws Exception{
-//		MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.delete(uri+"/"+createdVendorId)).andReturn();
-//		int status = mvcResult.getResponse().getStatus();
-//	    assertEquals(200, status);
-//	}
+	@Test
+	@Order(4)
+	void deleteVendorTestRequest() throws Exception{
+		MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.delete(uri+"/"+createdVendorId)).andReturn();
+		int status = mvcResult.getResponse().getStatus();
+	    assertEquals(200, status);
+	}
 	
 	
 	
