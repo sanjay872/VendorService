@@ -28,14 +28,14 @@ import com.vendor.service.VendorService;
 //@RequestMapping("vendor")
 public class VendorController {
 	
-//	@Value("${product.url}")
-//	private String productUrl;
+	@Value("${product.url}")
+	private String productUrl;
 	
 	@Autowired
 	private VendorService vendorService;
 
-//	@Autowired
-//	private RestTemplate restTemplate;
+	@Autowired
+	private RestTemplate restTemplate;
 
 	@GetMapping
 	public String check() {
@@ -84,7 +84,7 @@ public class VendorController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Vendor> deleteVendor(@PathVariable("id") long id) {
 		vendorService.deleteVendor(id);
-		//restTemplate.delete(this.productUrl+"/vendor/" + id);
+		restTemplate.delete(this.productUrl+"/vendor/" + id);
 		return new ResponseEntity<Vendor>(HttpStatus.OK);
 	}
 	

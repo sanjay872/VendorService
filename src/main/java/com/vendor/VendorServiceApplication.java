@@ -12,8 +12,8 @@ public class VendorServiceApplication {
 		SpringApplication.run(VendorServiceApplication.class, args);
 	}
 
-//	@Bean
-//	public RestTemplate getRestTemplate() {
-//		return new RestTemplate();
-//	}
+	@Bean
+	public RestTemplate getRestTemplate() {
+		return new RestTemplate();
+	}
 }
