@@ -25,11 +25,11 @@ import com.vendor.entity.VendorMapper;
 import com.vendor.service.VendorService;
 
 @RestController
-@RequestMapping("vendor")
+//@RequestMapping("vendor")
 public class VendorController {
 	
-	@Value("${product.url}")
-	private String productUrl;
+//	@Value("${product.url}")
+//	private String productUrl;
 	
 	@Autowired
 	private VendorService vendorService;
@@ -37,6 +37,11 @@ public class VendorController {
 //	@Autowired
 //	private RestTemplate restTemplate;
 
+	@GetMapping
+	public String check() {
+		return "welcome!";
+	}
+	
 	@PostMapping()
 	public ResponseEntity<Vendor> createVendor(@RequestBody Vendor vendor) {
 		Vendor newVendor=vendorService.createVendor(vendor);
