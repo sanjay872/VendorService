@@ -34,8 +34,7 @@ class VendorControllerTest {
 	
 	
 	private MockMvc mvc;
-	private static long createdVendorId=0; 
-	private String uri = "/vendor";
+	private static long createdVendorId=0;
 	
 	@BeforeEach
 	void setUp() {
@@ -47,7 +46,7 @@ class VendorControllerTest {
 	void createVendorTestRequest() throws Exception {
 	   Vendor vendor=new Vendor("apple",4,"address","contact number"); 
 	   String inputJson = mapToJson(vendor);
-	   MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
+	   MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post("/")
 	       .contentType(MediaType.APPLICATION_JSON_VALUE).content(inputJson)).andReturn();
 	    int status = mvcResult.getResponse().getStatus();
 	    assertEquals(201, status);
@@ -61,7 +60,7 @@ class VendorControllerTest {
 	void updateVendorTestRequest() throws Exception{
 		Vendor vendor=new Vendor(createdVendorId,"apple",4,"address","contact number"); 
 	    String inputJson =mapToJson(vendor);
-	    MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.put(uri)
+	    MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.put("/")
 	       .contentType(MediaType.APPLICATION_JSON_VALUE).content(inputJson)).andReturn();
 	    int status = mvcResult.getResponse().getStatus();
 	    assertEquals(200, status);
@@ -70,7 +69,7 @@ class VendorControllerTest {
 	@Test
 	@Order(3)
 	void getAllVendorTestRequest() throws Exception {
-	    MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri+"/all")
+	    MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get("/all")
 	       .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
 	    int status = mvcResult.getResponse().getStatus();
 	    assertEquals(200, status);
@@ -82,7 +81,7 @@ class VendorControllerTest {
 	@Test
 	@Order(4)
 	void deleteVendorTestRequest() throws Exception{
-		MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.delete(uri+"/"+createdVendorId)).andReturn();
+		MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.delete("/"+createdVendorId)).andReturn();
 		int status = mvcResult.getResponse().getStatus();
 	    assertEquals(200, status);
 	}
