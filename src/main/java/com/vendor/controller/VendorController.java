@@ -2,6 +2,8 @@ package com.vendor.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -28,6 +30,8 @@ import com.vendor.service.VendorService;
 //@RequestMapping("vendor")
 public class VendorController {
 	
+	private Logger log=LoggerFactory.getLogger(this.getClass());
+	
 	@Value("${product.url}")
 	private String productUrl;
 	
@@ -45,24 +49,28 @@ public class VendorController {
 	@PostMapping()
 	public ResponseEntity<Vendor> createVendor(@RequestBody Vendor vendor) {
 		Vendor newVendor=vendorService.createVendor(vendor);
+		log.info("vendor created");
 		return new ResponseEntity<Vendor>(newVendor,HttpStatus.CREATED);
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Vendor> getVendorById(@PathVariable("id") long id) {
 		Vendor vendor = vendorService.getVendorById(id);
+		log.info("return vendor with Id - "+id);
 		return new ResponseEntity<Vendor>(vendor, HttpStatus.OK);
 	}
 
 	@PutMapping()
 	public ResponseEntity<Vendor> updateVendor(@RequestBody Vendor vendor) {
 		Vendor updatedVendor=vendorService.updateVendor(vendor);
+		log.info("vendor updated");
 		return new ResponseEntity<Vendor>(updatedVendor,HttpStatus.OK);
 	}
 
 	@GetMapping("/name/{name}")
 	public ResponseEntity<Vendor> getVendorByName(@PathVariable("name") String name) {
 		Vendor vendor = vendorService.getVendorByName(name);
+		log.info("get vendor by name "+name);
 		return new ResponseEntity<Vendor>(vendor, HttpStatus.OK);
 	}
 
@@ -77,7 +85,7 @@ public class VendorController {
 		MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
 		headers.add("totalElement",String.valueOf(vendors.getTotalElements()));
 		headers.add("totalPages", String.valueOf(vendors.getTotalPages()));
-
+		log.info("Get all vendor by pagination");
 		return new ResponseEntity<List<Vendor>>(vendors.getContent(),headers, HttpStatus.OK);
 	}
 
@@ -85,11 +93,13 @@ public class VendorController {
 	public ResponseEntity<Vendor> deleteVendor(@PathVariable("id") long id) {
 		vendorService.deleteVendor(id);
 		restTemplate.delete(this.productUrl+"/vendor/" + id);
+		log.info("delete vendor and its product");
 		return new ResponseEntity<Vendor>(HttpStatus.OK);
 	}
 	
 	@GetMapping("/map")
 	public ResponseEntity<List<VendorMapper>> getVendorMapper(){
+		log.info("get vendor details for mapping to product");
 		return new ResponseEntity<List<VendorMapper>>(vendorService.getVendorMapper(),HttpStatus.OK);
 	}
 }
