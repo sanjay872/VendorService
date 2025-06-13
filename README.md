@@ -1,4 +1,4 @@
-### ✅ VendorService – `README.md`
+### ✅ VendorService
 
 # GadgetHive – Vendor Service
 
